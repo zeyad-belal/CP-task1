@@ -81,7 +81,7 @@ export default function PersonalInfo() {
 console.log(extraQs)
 console.log(inputs)
 
-function addChoice(e){
+function addChoice(e:Event){
   const input = e.target.parentNode.parentNode.children[0].value;
   setChoices(prev => [...prev , input])
 }
@@ -212,7 +212,7 @@ function addChoice(e){
           <AiOutlinePlus /> Add a question
         </div>
 
-        <button onClick={handleSubmit}>Submit</button>
+        <button className={classes.submit} onClick={handleSubmit}>Submit</button>
       </div>
     </div>
   );

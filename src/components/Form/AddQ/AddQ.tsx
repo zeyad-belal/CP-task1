@@ -4,6 +4,7 @@ import classes from './AddQ.module.css';
 
 interface Props {
   getExtraQsData(Q: { type: string; question: string }): void;
+  addingStateDone(boolean:boolean): void;
 }
 
 export default function AddQ(props: Props) {

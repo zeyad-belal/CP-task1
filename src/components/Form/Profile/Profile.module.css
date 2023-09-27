@@ -139,3 +139,39 @@ label p span span:last-child.active::before{
   font-weight: 600;
 }
 
+.multi{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+
+.multi input{
+  width: 90%;
+  border: 1px solid #C4C4C4;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.multi input span{
+  cursor: pointer;
+}
+
+.submit{
+  width: 80px;
+  margin-left: 85%;
+  border-radius: 5px;
+  background-color: #087B2F;
+  color: white;
+  padding: 7px 15px;
+  font-weight: 600;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+
+}
+
+.submit:hover{
+  background-color: #0fb045;
+}

@@ -39,8 +39,6 @@ export default function Profile() {
   };
 
 
-
-
   const renderCheckboxes = (field: string) => {
     const isChecked = inputs[field].visibility;
   
@@ -98,7 +96,11 @@ export default function Profile() {
       });
   };
 
-
+  function addChoice(e:Event){
+    const input = e.target.parentNode.parentNode.children[0].value;
+    setChoices(prev => [...prev , input])
+  }
+  
   const typesMap = {
     "textarea":  <textarea> </textarea>  ,
     "text": <input type='text' />  ,
@@ -133,6 +135,7 @@ export default function Profile() {
   function addingStateDone(){
     setAddingQ(false)
   }
+
   function getExtraQsData(Q:object){
     setExtraQs(prevValues => [...prevValues, Q])
   }
@@ -174,7 +177,7 @@ export default function Profile() {
           <AiOutlinePlus /> Add a question
         </div>
 
-        <button onClick={handleSubmit}>Submit</button>
+        <button className={classes.submit} onClick={handleSubmit}>Submit</button>
       </div>
 
     </div>
