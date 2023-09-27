@@ -23,63 +23,42 @@
   font-size: 22px;
 }
 
-label{
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 30px;
+.fieldtitle{
   font-weight: 600;
-  gap: 5px;
-}
-
-label input{
-  border: none;
-  border-bottom:1px solid  #C4C4C4;
-  outline: 0;
-}
-
-label span{
-  font-size: 12px;
-  font-weight: 300;
-  margin: 0 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-label p {
-  margin: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-#labelPhone{
-  color: black;
-  font-weight: 600;
-  font-size: 16px;
+.fieldtitle span{
+  font-weight: 400;
+  font-size: 12px;
+  width: 150px;
+  display: flex;
 }
-
-label p span p {
-  font-weight: 300;
-  font-size: 13px;
-  margin-left: 5px;
+.checkHidden{
+  visibility: hidden;
 }
-
-
-label p span span:last-child {
+.checkField{
+  border: none;
+  border-bottom: 1px solid #C4C4C4;
+  width: 100%;
+}
+.labelLike  span span:last-child {
   position: relative;
-  margin-left: 50px;
-  cursor: pointer;
+  margin: 0px 6px;
 }
 
-label p span span:last-child input{
-opacity: 0;
+.labelLike  span span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-label p span span:last-child::before{
+.labelLike  span span:last-child::before{
   content: "";
   position: absolute;
-  top: 0px;
+  top: -1px;
   right: 0;
   width: 35px;
   height: 20px;
@@ -89,7 +68,7 @@ label p span span:last-child::before{
 
 }
 
-label p span span:last-child::after{
+.labelLike  span span:last-child::after{
   content: "";
   position: absolute;
   top: 2px;
@@ -101,11 +80,11 @@ label p span span:last-child::after{
   border: 1px solid #C4C4C4;
 }
 
-label p span span:last-child.active::after{
+.labelLike  span span:last-child.active::after{
   content: "";
   position: absolute;
   top: 2.5px;
-  left: -14px;
+  left: 19px;
   width: 15px;
   height: 15px;
   background-color: #F4F4F4;
@@ -114,7 +93,7 @@ label p span span:last-child.active::after{
 }
 
 
-label p span span:last-child.active::before{
+.labelLike  span span:last-child.active::before{
   content: "";
   position: absolute;
   top: 0px;
@@ -137,24 +116,6 @@ label p span span:last-child.active::before{
   cursor: pointer;
   gap: 5px;
   font-weight: 600;
-}
-
-.multi{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 5px;
-}
-
-.multi input{
-  width: 90%;
-  border: 1px solid #C4C4C4;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.multi input span{
-  cursor: pointer;
 }
 
 .submit{

@@ -44,25 +44,35 @@ export default function Profile() {
     const isChecked = inputs[field].visibility;
 
     return (
-      <p key={field}>
-        {field}
-        <span>
+      <div key={field} className={classes.labelLike}>
+        <p className={classes.fieldtitle}>
+          {field}
           <span>
-            <input
-              type="checkbox"
-              checked={inputs[field].Mandatory}
-              onChange={() => handleCheckboxChange(field, 'Mandatory')}
-            />
-            Mandatory
-          </span>
+            <span>
+              <input
+                required
+                name={field}
+                type="checkbox"
+                checked={inputs[field].Mandatory}
+                onChange={() => handleCheckboxChange(field, 'Mandatory')}
+              />
+              Internal
+            </span>
 
-          <span className={isChecked ? classes.active : ''} onClick={() => handleCheckboxChange(field, 'visibility')}>
-            <input type="checkbox" checked={isChecked} />
+            <span className={isChecked ? classes.active : ''} onClick={() => handleCheckboxChange(field, 'visibility')}>
+              <input
+                required
+                name={field}
+                type="checkbox"
+                checked={isChecked}
+                className={classes.checkHidden}
+              />
+            </span>
+            {isChecked ? 'Show' : 'Hide'}
           </span>
-          {isChecked ? 'Show' : 'Hide'}
-        </span>
-        <input type="text" />
-      </p>
+        </p>
+        <input name={field} required type="text" className={classes.checkField} />
+      </div>
     );
   };
 
@@ -154,20 +164,14 @@ export default function Profile() {
     <div className={classes.personalContainer}>
       <h2>Profile</h2>
       <div className={classes.inputs}>
-        <label>
+        
           {renderCheckboxes('Education')}
-        </label>
-        <input type="text" />
 
-        <label>
           {renderCheckboxes('Experience')}
-        </label>
-        <input type="text" />
 
-        <label>
+
           {renderCheckboxes('Resume')}
-        </label>
-        <input type="text" />
+
 
         {/* displaying extras questions  */}
         {extraQs.map((Q, i) => (
