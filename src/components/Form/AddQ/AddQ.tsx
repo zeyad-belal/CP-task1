@@ -30,7 +30,7 @@ export default function AddQ(props: Props) {
       question: formData.question,
     };
     props.getExtraQsData(Q);
-    props.addingStateDone();
+    props.addingStateDone(true);
   }
 
   return (

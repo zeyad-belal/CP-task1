@@ -10,7 +10,7 @@ export default function ImageInput() {
   // left this state up 
   const [imageFile, setImageFile] = useState<File | null>(null);
 
-
+console.log(imageFile)
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
