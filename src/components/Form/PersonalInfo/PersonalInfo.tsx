@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState, FormEvent } from 'react';
+
+import React, { useState, FormEvent, MouseEvent } from 'react';
 import classes from './PersonalInfo.module.css';
 import { AiOutlinePlus } from 'react-icons/ai';
 import AddQ from '../AddQ/AddQ';
@@ -23,6 +24,9 @@ export default function PersonalInfo() {
   const [choices, setChoices] = useState<string[]>([]);
 
   const initialInputs: InputsState = {
+    firstName: { internal: false, visibility: false },
+    lastName: { internal: false, visibility: false },
+    emailId: { internal: false, visibility: false },
     Phone: { internal: false, visibility: false },
     Nationality: { internal: false, visibility: false },
     'Current Residence': { internal: false, visibility: false },
@@ -47,7 +51,8 @@ export default function PersonalInfo() {
 
     return (
       <div key={field} className={classes.labelLike}>
-        <p className={classes.fieldtitle}> {field}
+        <p className={classes.fieldtitle}>
+          {field}
           <span>
             <span>
               <input
@@ -55,18 +60,19 @@ export default function PersonalInfo() {
                 name={field}
                 type="checkbox"
                 checked={inputs[field].internal}
-                onChange={() => handleCheckboxChange(field, 'internal')} />
+                onChange={() => handleCheckboxChange(field, 'internal')}
+              />
               Internal
             </span>
 
-            <span
-              className={isChecked ? classes.active : ''}
-              onClick={() => handleCheckboxChange(field, 'visibility')} >
+            <span className={isChecked ? classes.active : ''} onClick={() => handleCheckboxChange(field, 'visibility')}>
               <input
                 required
                 name={field}
                 type="checkbox"
-                checked={isChecked} className={classes.checkHidden} />
+                checked={isChecked}
+                className={classes.checkHidden}
+              />
             </span>
             {isChecked ? 'Show' : 'Hide'}
           </span>
@@ -80,12 +86,13 @@ export default function PersonalInfo() {
     setExtraQs((prevValues) => [...prevValues, Q]);
   }
 
-  function addingStateDone() {
+  function addingStateDone(done: boolean) {
     setAddingQ(false);
+    console.log(done)
   }
 
-  function addChoice(e: Event) {
-    const input = (e.target as HTMLInputElement).parentNode?.parentNode?.children[0]?.value;
+  function addChoice(e: MouseEvent<HTMLSpanElement>) {
+    const input = (e.target as HTMLSpanElement).parentNode?.parentNode?.children[0]?.textContent;
     if (input) {
       setChoices((prev) => [...prev, input]);
     }
@@ -110,10 +117,10 @@ export default function PersonalInfo() {
           'Content-Type': 'application/json',
         },
       });
-  
+
       // Handle the API response
       console.log('API Response:', response.data);
-  
+
       // Reset form data as needed
       setInputs(initialInputs);
       setExtraQs([]);
@@ -122,18 +129,12 @@ export default function PersonalInfo() {
       // Handle errors
       console.error('API Error:', error);
     }
-
-
-    // Reset form data as needed
-    setInputs(initialInputs);
-    setExtraQs([]);
-    setChoices([]);
   };
 
-  const typesMap = {
+  const typesMap: { [key: string]: React.ReactNode } = {
     textarea: <textarea></textarea>,
     text: <input type="text" />,
-    boolen: (
+    boolean: (
       <select>
         <option value="yes">yes</option>
         <option value="no">no</option>
@@ -174,17 +175,17 @@ export default function PersonalInfo() {
       <div className={classes.inputs}>
         <label>
           First Name
-          <input name='firstName' type="text" required />
+          <input name="firstName" type="text" required />
         </label>
 
         <label>
           Last Name
-          <input name='lastName' type="text" required />
+          <input name="lastName" type="text" required />
         </label>
 
         <label>
           Email
-          <input name='emailId' type="text" required />
+          <input name="emailId" type="text" required />
         </label>
 
         {renderCheckboxes('Phone')}

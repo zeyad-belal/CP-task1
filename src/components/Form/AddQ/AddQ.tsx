@@ -4,7 +4,7 @@ import classes from './AddQ.module.css';
 
 interface Props {
   getExtraQsData(Q: { type: string; question: string }): void;
-  addingStateDone(boolean:boolean): void;
+  addingStateDone(done: boolean): void;
 }
 
 export default function AddQ(props: Props) {
@@ -15,7 +15,7 @@ export default function AddQ(props: Props) {
   });
 
   function handleInputChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
-    const { name, value } = e.target;
+    const { name, value } = e.target as HTMLInputElement | HTMLSelectElement; // Cast to the correct type
     // Update the corresponding state value based on the input name
     setFormData((prevData) => ({
       ...prevData,
@@ -29,7 +29,7 @@ export default function AddQ(props: Props) {
       type: formData.type,
       question: formData.question,
     };
-    props.getExtraQsData(Q);
+    props.getExtraQsData(Q); // Pass the 'Q' object as an argument
     props.addingStateDone(true);
   }
 
@@ -39,12 +39,13 @@ export default function AddQ(props: Props) {
         <label htmlFor="type">
           Type
           <select
-          name="type"
-          value={formData.type}
-          onChange={handleInputChange} >
+            name="type"
+            value={formData.type}
+            onChange={handleInputChange}
+          >
             <option value="textarea">Paragraph</option>
             <option value="text">Short answer</option>
-            <option value="boolen">Yes/No</option>
+            <option value="boolean">Yes/No</option> {/* Fixed typo in 'boolean' */}
             <option value="dropdown">Dropdown</option>
             <option value="choices">Multiple choice</option>
             <option value="date">Date</option>
