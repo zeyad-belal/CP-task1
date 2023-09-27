@@ -1,0 +1,53 @@
+.QContainer{
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem; 
+  border-radius: 0.375rem; 
+  max-width: 500px;
+}
+
+.Q{
+  padding: 15px 10px;
+  color: #979797;
+  border: 1px solid #979797;
+  border-radius: 5px;
+}
+
+select{
+  padding: 15px 10px;
+  outline: none;
+  margin-top: 10px;
+  font-size: 11px;
+  color: #979797;
+}
+
+select::selection {
+  background-color: #9C4DE2; 
+  color: white; 
+}
+
+option {
+  padding: 10px;
+  background-color: #fff; 
+  color: #000; 
+  font-weight: medium; 
+
+}
+option:hover {
+  padding: 10px;
+  background-color: green; 
+
+}
+
+.save{
+  background-color: green;
+  color: white;
+  padding: 6px 12px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  align-self: end;
+  cursor: pointer;
+}
+

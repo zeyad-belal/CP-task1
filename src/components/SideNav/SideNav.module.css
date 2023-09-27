@@ -1,0 +1,27 @@
+.sideNav{
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 2%;
+  box-sizing: border-box;
+  padding: 1em 2em;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  gap: 30%;
+  background-color: white;
+}
+
+
+.burgerIcon{
+  margin-bottom: 3em;
+}
+
+.homeIcon{
+  margin-bottom: 1em;
+}
+
+.userImg{
+  max-width: 47px;
+  align-self: center;
+}

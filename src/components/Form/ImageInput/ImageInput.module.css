@@ -1,0 +1,87 @@
+.imageInputContainer{
+  max-width: 500px;
+  margin-left: 13%;
+  margin-top: 4%;
+  box-shadow: 3px 3px 14px rgba(0, 0, 0, 0.1);
+  border-radius: 20px 20px 0px 0px;
+  overflow: hidden;
+  border-radius: 1rem; 
+
+}
+
+
+.imageInputContainer>h2{
+  background-color: #D0F7FA;
+  padding: 15px  20px;
+  margin: 0;
+  margin-bottom: 30px;
+  font-size: 22px;
+}
+
+.imageInput {
+  display: none;
+}
+
+
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; 
+  padding: 1rem; 
+  margin-bottom: 1.5rem; 
+  border-radius: 0.375rem; 
+  padding: 1rem 2rem;
+}
+
+.button {
+  position: relative;
+  align-self: center;
+  padding: 1.5rem 6rem; 
+  font-weight: 500;  
+  font-size: 0.875rem; 
+  background-color: transparent; 
+  border-radius: 0.375rem; 
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed black;
+  color: black;
+}
+
+.imageContainer {
+  max-width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.closeButton {
+  color: #A80000;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  text-align: start;
+  gap: 5px; 
+  font-size: 14px;
+  font-weight: 600;
+  padding-left: 10px;
+}
+
+
+.note{
+  color: #979797;
+  font-size: 11px;
+}
+
+.uploud{
+  font-size: 14px;
+}
+
+.image{
+  width: 100%;
+}

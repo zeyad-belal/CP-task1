@@ -1,0 +1,9 @@
+.app{
+  display: flex;
+}
+
+.navForm{
+  width: 100%;
+  margin-top: 4%;
+  margin-left: 66px;
+}
