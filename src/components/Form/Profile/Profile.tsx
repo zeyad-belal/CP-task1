@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import classes from './Profile.module.css';
 import { AiOutlinePlus } from "react-icons/ai";
+import AddQ from '../AddQ/AddQ';
 
 
 type InputsState = {
@@ -14,7 +15,9 @@ type InputsState = {
 
 
 export default function Profile() {
-
+  const [extraQs, setExtraQs] = useState<object[]>([]);
+  const [AddingQ, setAddingQ] = useState<boolean>(false);
+  const [choices, setChoices] = useState<string[]>([]);
 
   const initialInputs: InputsState = {
     Education: { Mandatory: false, visibility: false },
@@ -68,12 +71,71 @@ export default function Profile() {
   };
 
 
+  const handleSubmit = () => {
+    // Gather data from inputs
+    const dataToSend = Object.keys(inputs).map((field) => ({
+      field,
+      internal: inputs[field].internal,
+      visibility: inputs[field].visibility,
+    }));
+
+    // Send data to your API (replace this with your API call)
+    fetch('YOUR_API_URL', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dataToSend),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the API response if needed
+        console.log('API Response:', data);
+      })
+      .catch((error) => {
+        // Handle errors
+        console.error('API Error:', error);
+      });
+  };
 
 
+  const typesMap = {
+    "textarea":  <textarea> </textarea>  ,
+    "text": <input type='text' />  ,
 
+    "boolen":  <select > 
+      <option value="yes">yes</option>
+      <option value="no">no</option>
+    </select>
+    ,
 
+    "dropdown":  <select > 
+    <option value="one">one</option>
+    <option value="two">two</option>
+  </select>
+  ,
 
+    "choices": <>
+      <div className={classes.multi}>  <input type='text' placeholder='type here' /> <span onClick={(e)=> addChoice(e)}> <AiOutlinePlus /> </span>  </div>
+      { choices && <select > 
+      {choices.map((choice,index)=>(
+        <option key={index} value={choice}>{choice}</option>
+      ))}
+    </select>}
+    </> ,
 
+    "date":  <input type='date' /> ,
+    "number":  <input type='number' /> ,
+    "file":  <input type='file' /> ,
+    "video":  <input type='video' /> ,
+  }
+
+  function addingStateDone(){
+    setAddingQ(false)
+  }
+  function getExtraQsData(Q:object){
+    setExtraQs(prevValues => [...prevValues, Q])
+  }
 
   return (
     <div className={classes.personalContainer}>
@@ -96,7 +158,23 @@ export default function Profile() {
       </label>
         
 
-        <div className={classes.addQ}> <AiOutlinePlus /> Add a question </div>
+        {/* displaying extras questions  */}
+        {extraQs.map((Q,i)=>(
+          <label key={i}>  
+            {Q.question}
+            <span> </span>
+            {typesMap[Q.type]}
+          </label>
+        ))}
+        {AddingQ ?  <AddQ getExtraQsData={getExtraQsData} addingStateDone={addingStateDone} /> : "" }
+
+
+
+        <div className={classes.addQ} onClick={()=> setAddingQ(true)} >
+          <AiOutlinePlus /> Add a question
+        </div>
+
+        <button onClick={handleSubmit}>Submit</button>
       </div>
 
     </div>
