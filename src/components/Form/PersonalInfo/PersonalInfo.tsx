@@ -1,8 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import  { useState } from 'react';
+import { useState, FormEvent } from 'react';
 import classes from './PersonalInfo.module.css';
 import { AiOutlinePlus } from 'react-icons/ai';
 import AddQ from '../AddQ/AddQ';
+import axios from 'axios';
+
+type ExtraQuestion = {
+  question: string;
+  type: string;
+};
 
 type InputsState = {
   [key: string]: {
@@ -12,7 +18,7 @@ type InputsState = {
 };
 
 export default function PersonalInfo() {
-  const [extraQs, setExtraQs] = useState<object[]>([]);
+  const [extraQs, setExtraQs] = useState<ExtraQuestion[]>([]);
   const [AddingQ, setAddingQ] = useState<boolean>(false);
   const [choices, setChoices] = useState<string[]>([]);
 
@@ -26,9 +32,6 @@ export default function PersonalInfo() {
   };
   const [inputs, setInputs] = useState<InputsState>(initialInputs);
 
-
-
-
   const handleCheckboxChange = (field: string, type: 'internal' | 'visibility') => {
     setInputs((prevInputs) => ({
       ...prevInputs,
@@ -39,164 +42,179 @@ export default function PersonalInfo() {
     }));
   };
 
-
   const renderCheckboxes = (field: string) => {
     const isChecked = inputs[field].visibility;
-  
+
     return (
-      <p key={field} className={classes.labelLike}>
-        <p className={classes.fieldtitle}>  {field} 
-        <span>
+      <div key={field} className={classes.labelLike}>
+        <p className={classes.fieldtitle}> {field}
           <span>
-            <input
-              type="checkbox"
-              checked={inputs[field].internal}
-              onChange={() => handleCheckboxChange(field, 'internal')} />
-            Mandatory
-          </span>
+            <span>
+              <input
+                required
+                name={field}
+                type="checkbox"
+                checked={inputs[field].internal}
+                onChange={() => handleCheckboxChange(field, 'internal')} />
+              Internal
+            </span>
 
-          <span
-            className={isChecked ? classes.active : ''}
-            onClick={() => handleCheckboxChange(field, 'visibility')} >
-            <input
-              type="checkbox"
-              checked={isChecked} className={classes.checkHidden} />
+            <span
+              className={isChecked ? classes.active : ''}
+              onClick={() => handleCheckboxChange(field, 'visibility')} >
+              <input
+                required
+                name={field}
+                type="checkbox"
+                checked={isChecked} className={classes.checkHidden} />
+            </span>
+            {isChecked ? 'Show' : 'Hide'}
           </span>
-          {isChecked ? 'Show' : 'Hide'} 
-        </span>
         </p>
-        <input type="text" className={classes.checkField} />
-
-      </p>
+        <input name={field} required type="text" className={classes.checkField} />
+      </div>
     );
   };
-  
-  
-  function getExtraQsData(Q:object){
-    setExtraQs(prevValues => [...prevValues, Q])
+
+  function getExtraQsData(Q: ExtraQuestion) {
+    setExtraQs((prevValues) => [...prevValues, Q]);
   }
 
-  function addingStateDone(){
-    setAddingQ(false)
+  function addingStateDone() {
+    setAddingQ(false);
   }
 
+  function addChoice(e: Event) {
+    const input = (e.target as HTMLInputElement).parentNode?.parentNode?.children[0]?.value;
+    if (input) {
+      setChoices((prev) => [...prev, input]);
+    }
+  }
 
-function addChoice(e:Event){
-  const input = e.target.parentNode.parentNode.children[0].value;
-  setChoices(prev => [...prev , input])
-}
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
 
-
-  const handleSubmit = () => {
-    // Gather data from inputs
-    const dataToSend = Object.keys(inputs).map((field) => ({
-      field,
-      internal: inputs[field].internal,
-      visibility: inputs[field].visibility,
-    }));
+    // Gather data from inputs and extra questions
+    const dataToSend = {
+      ...inputs,
+      extraQuestions: extraQs,
+    };
 
     // Send data to your API (replace this with your API call)
-    fetch('the api which i cant find', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(dataToSend),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the API response if needed
-        console.log('API Response:', data);
-      })
-      .catch((error) => {
-        // Handle errors
-        console.error('API Error:', error);
+    console.log('Data to send:', dataToSend);
+
+    try {
+      // Replace 'YOUR_API_URL' with your actual API endpoint
+      const response = await axios.post('YOUR_API_URL', dataToSend, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
+  
+      // Handle the API response
+      console.log('API Response:', response.data);
+  
+      // Reset form data as needed
+      setInputs(initialInputs);
+      setExtraQs([]);
+      setChoices([]);
+    } catch (error) {
+      // Handle errors
+      console.error('API Error:', error);
+    }
+
+
+    // Reset form data as needed
+    setInputs(initialInputs);
+    setExtraQs([]);
+    setChoices([]);
   };
 
   const typesMap = {
-    "textarea":  <textarea> </textarea>  ,
-    "text": <input type='text' />  ,
-
-    "boolen":  <select > 
-      <option value="yes">yes</option>
-      <option value="no">no</option>
-    </select>
-    ,
-
-    "dropdown":  <select > 
-    <option value="one">one</option>
-    <option value="two">two</option>
-  </select>
-  ,
-
-    "choices": <>
-      <div className={classes.multi}>  <input type='text' placeholder='type here' /> <span onClick={(e)=> addChoice(e)}> <AiOutlinePlus /> </span>  </div>
-      { choices && <select > 
-      {choices.map((choice,index)=>(
-        <option key={index} value={choice}>{choice}</option>
-      ))}
-    </select>}
-    </> ,
-
-    "date":  <input type='date' /> ,
-    "number":  <input type='number' /> ,
-    "file":  <input type='file' /> ,
-    "video":  <input type='video' /> ,
-  }
-
-
+    textarea: <textarea></textarea>,
+    text: <input type="text" />,
+    boolen: (
+      <select>
+        <option value="yes">yes</option>
+        <option value="no">no</option>
+      </select>
+    ),
+    dropdown: (
+      <select>
+        <option value="one">one</option>
+        <option value="two">two</option>
+      </select>
+    ),
+    choices: (
+      <>
+        <div className={classes.multi}>
+          <input type="text" placeholder="type here" />
+          <span onClick={(e) => addChoice(e)}> <AiOutlinePlus /> </span>
+        </div>
+        {choices && (
+          <select>
+            {choices.map((choice, index) => (
+              <option key={index} value={choice}>
+                {choice}
+              </option>
+            ))}
+          </select>
+        )}
+      </>
+    ),
+    date: <input type="date" />,
+    number: <input type="number" />,
+    file: <input type="file" />,
+    video: <input type="video" />,
+  };
 
   return (
-    <div className={classes.personalContainer}>
+    <form className={classes.personalContainer} onSubmit={(e) => handleSubmit(e)}>
       <h2>Personal Information</h2>
       <div className={classes.inputs}>
-        <label >
+        <label>
           First Name
-          <input type="text" />
+          <input name='firstName' type="text" required />
         </label>
 
-        <label >
+        <label>
           Last Name
-          <input type="text" />
+          <input name='lastName' type="text" required />
         </label>
 
-        <label >
+        <label>
           Email
-          <input type="text" />
+          <input name='emailId' type="text" required />
         </label>
 
-          {renderCheckboxes('Phone')} 
+        {renderCheckboxes('Phone')}
 
-          {renderCheckboxes('Nationality')} 
+        {renderCheckboxes('Nationality')}
 
-          {renderCheckboxes('Current Residence')} 
+        {renderCheckboxes('Current Residence')}
 
-          {renderCheckboxes('Id Number')} 
+        {renderCheckboxes('Id Number')}
 
-          {renderCheckboxes('Date of Birth')} 
+        {renderCheckboxes('Date of Birth')}
 
-          {renderCheckboxes('Gender')} 
+        {renderCheckboxes('Gender')}
 
-        {/* displaying extras questions  */}
-        {extraQs.map((Q,i)=>(
-          <label key={i}>  
+        {/* displaying extras questions */}
+        {extraQs.map((Q, i) => (
+          <label key={i}>
             {Q.question}
             <span> </span>
             {typesMap[Q.type]}
           </label>
         ))}
-        {AddingQ ?  <AddQ getExtraQsData={getExtraQsData} addingStateDone={addingStateDone} /> : "" }
+        {AddingQ ? <AddQ getExtraQsData={getExtraQsData} addingStateDone={addingStateDone} /> : ''}
 
-
-
-        <div className={classes.addQ} onClick={()=> setAddingQ(true)} >
+        <div className={classes.addQ} onClick={() => setAddingQ(true)}>
           <AiOutlinePlus /> Add a question
         </div>
 
-        <button className={classes.submit} onClick={handleSubmit}>Submit</button>
+        <input type="submit" value={'Submit'} className={classes.submit} />
       </div>
-    </div>
+    </form>
   );
-}        
-  
+}

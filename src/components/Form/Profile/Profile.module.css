@@ -104,7 +104,7 @@ label p span span:last-child::after{
 label p span span:last-child.active::after{
   content: "";
   position: absolute;
-  top: 2px;
+  top: 2.5px;
   left: -14px;
   width: 15px;
   height: 15px;
