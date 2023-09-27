@@ -26,7 +26,39 @@
 /* toggle button checkbox  */
 
 
-label p span span:last-child::before{
+.fieldtitle{
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fieldtitle span{
+  font-weight: 400;
+  font-size: 12px;
+  width: 150px;
+  display: flex;
+}
+.checkHidden{
+  visibility: hidden;
+}
+.checkField{
+  border: none;
+  border-bottom: 1px solid #C4C4C4;
+  width: 100%;
+}
+.labelLike  span span:last-child {
+  position: relative;
+  margin: 0px 6px;
+}
+
+.labelLike  span span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.labelLike  span span:last-child::before{
   content: "";
   position: absolute;
   top: 0px;
@@ -39,7 +71,7 @@ label p span span:last-child::before{
 
 }
 
-label p span span:last-child::after{
+.labelLike  span span:last-child::after{
   content: "";
   position: absolute;
   top: 2px;
@@ -51,11 +83,11 @@ label p span span:last-child::after{
   border: 1px solid #C4C4C4;
 }
 
-label p span span:last-child.active::after{
+.labelLike  span span:last-child.active::after{
   content: "";
   position: absolute;
   top: 2px;
-  left: -14px;
+  left: 10px;
   width: 15px;
   height: 15px;
   background-color: #F4F4F4;
@@ -64,7 +96,7 @@ label p span span:last-child.active::after{
 }
 
 
-label p span span:last-child.active::before{
+.labelLike  span span:last-child.active::before{
   content: "";
   position: absolute;
   top: 0px;

@@ -44,27 +44,29 @@ export default function PersonalInfo() {
     const isChecked = inputs[field].visibility;
   
     return (
-      <p key={field}>
-        {field}
+      <p key={field} className={classes.labelLike}>
+        <p className={classes.fieldtitle}>  {field} 
         <span>
-
-          <span  onClick={() => handleCheckboxChange(field, 'internal')} >
+          <span>
             <input
               type="checkbox"
-              checked={inputs[field].internal} />
+              checked={inputs[field].internal}
+              onChange={() => handleCheckboxChange(field, 'internal')} />
+            Mandatory
           </span>
-            Internal
 
           <span
             className={isChecked ? classes.active : ''}
             onClick={() => handleCheckboxChange(field, 'visibility')} >
             <input
               type="checkbox"
-              checked={isChecked} />
+              checked={isChecked} className={classes.checkHidden} />
           </span>
           {isChecked ? 'Show' : 'Hide'} 
-
         </span>
+        </p>
+        <input type="text" className={classes.checkField} />
+
       </p>
     );
   };
@@ -78,8 +80,6 @@ export default function PersonalInfo() {
     setAddingQ(false)
   }
 
-console.log(extraQs)
-console.log(inputs)
 
 function addChoice(e:Event){
   const input = e.target.parentNode.parentNode.children[0].value;
@@ -96,7 +96,7 @@ function addChoice(e:Event){
     }));
 
     // Send data to your API (replace this with your API call)
-    fetch('YOUR_API_URL', {
+    fetch('the api which i cant find', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -166,35 +166,17 @@ function addChoice(e:Event){
           <input type="text" />
         </label>
 
-        <label >  
           {renderCheckboxes('Phone')} 
-          <input type="text" />
-        </label>
 
-        <label >  
           {renderCheckboxes('Nationality')} 
-          <input type="text" />
-        </label>
 
-        <label >  
           {renderCheckboxes('Current Residence')} 
-          <input type="text" />
-        </label>
 
-        <label >  
           {renderCheckboxes('Id Number')} 
-          <input type="text" />
-        </label>
 
-        <label >  
           {renderCheckboxes('Date of Birth')} 
-        <input type="text" />
-        </label>
 
-        <label >  
           {renderCheckboxes('Gender')} 
-          <input type="text" />
-        </label>
 
         {/* displaying extras questions  */}
         {extraQs.map((Q,i)=>(
