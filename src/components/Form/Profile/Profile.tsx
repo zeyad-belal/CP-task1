@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import  { useState, ChangeEvent } from 'react'; // Import React
+import  { useState } from 'react'; // Import React
 import classes from './Profile.module.css';
 import { AiOutlinePlus } from 'react-icons/ai';
 import AddQ from '../AddQ/AddQ';
