@@ -5,8 +5,15 @@
   margin-bottom: 1.5rem; 
   border-radius: 0.375rem; 
   max-width: 500px;
+  margin: 20px 0px;
 }
+.inputs{
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin: 20px 0px;
 
+}
 .Q{
   padding: 15px 10px;
   color: #979797;
@@ -51,3 +58,16 @@ option:hover {
   cursor: pointer;
 }
 
+
+.fixedField{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-weight: 600;
+}
+
+.fixedField input{
+  border: none;
+  border-bottom: 1px solid #C4C4C4;
+  margin-bottom: 15px;
+}

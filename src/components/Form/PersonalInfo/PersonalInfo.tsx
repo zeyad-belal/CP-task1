@@ -107,12 +107,10 @@ export default function PersonalInfo() {
       extraQuestions: extraQs,
     };
 
-    // Send data to your API (replace this with your API call)
     console.log('Data to send:', dataToSend);
 
     try {
-      // Replace 'YOUR_API_URL' with your actual API endpoint
-      const response = await axios.post('YOUR_API_URL', dataToSend, {
+      const response = await axios.post('theAPI', dataToSend, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -121,7 +119,6 @@ export default function PersonalInfo() {
       // Handle the API response
       console.log('API Response:', response.data);
 
-      // Reset form data as needed
       setInputs(initialInputs);
       setExtraQs([]);
       setChoices([]);

@@ -8,14 +8,13 @@ interface Props {
 }
 
 export default function AddQ(props: Props) {
-  // Initialize state for type and question
   const [formData, setFormData] = useState<{ type: string; question: string }>({
-    type: 'textarea', // Set a default type if needed
+    type: 'textarea', 
     question: '',
   });
 
   function handleInputChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
-    const { name, value } = e.target as HTMLInputElement | HTMLSelectElement; // Cast to the correct type
+    const { name, value } = e.target as HTMLInputElement | HTMLSelectElement; 
     // Update the corresponding state value based on the input name
     setFormData((prevData) => ({
       ...prevData,
@@ -24,19 +23,18 @@ export default function AddQ(props: Props) {
   }
 
   function saveQ() {
-    // Create an object with type and question from formData
     const Q = {
       type: formData.type,
       question: formData.question,
     };
-    props.getExtraQsData(Q); // Pass the 'Q' object as an argument
+    props.getExtraQsData(Q); 
     props.addingStateDone(true);
   }
 
   return (
     <div className={classes.QContainer}>
       <div className={classes.inputs}>
-        <label htmlFor="type">
+        <label htmlFor="type" className={classes.fixedField}>
           Type
           <select
             name="type"
@@ -45,7 +43,7 @@ export default function AddQ(props: Props) {
           >
             <option value="textarea">Paragraph</option>
             <option value="text">Short answer</option>
-            <option value="boolean">Yes/No</option> {/* Fixed typo in 'boolean' */}
+            <option value="boolean">Yes/No</option> 
             <option value="dropdown">Dropdown</option>
             <option value="choices">Multiple choice</option>
             <option value="date">Date</option>
@@ -55,7 +53,7 @@ export default function AddQ(props: Props) {
           </select>
         </label>
 
-        <label htmlFor="question">
+        <label htmlFor="question" className={classes.fixedField}>
           Question
           <input
             name="question"
