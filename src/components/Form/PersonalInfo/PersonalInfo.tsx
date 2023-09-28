@@ -99,12 +99,22 @@ export default function PersonalInfo() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
     // Gather data from inputs and extra questions
-    const dataToSend = {
-      ...inputs,
-      extraQsAnswers: formData,
-    };
+    const dataToSend = {};
+    Object.keys(inputs).forEach((field) => {
+      // Check if the field exists in formData
+      if (formData.hasOwnProperty(field)) {
+        // Update the dataToSend[field] with the corresponding data from formData
+        dataToSend[field] = {
+          ...dataToSend[field],
+          ...inputs[field],
+          value: formData[field],
+        };
+      }
+    });
+    
+
+
     console.log("formData",formData)
     console.log('Data to send:', dataToSend);
 

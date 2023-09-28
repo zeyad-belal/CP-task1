@@ -15,6 +15,9 @@ export default function AddQ(props: Props) {
 
   function handleInputChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name, value } = e.target as HTMLInputElement | HTMLSelectElement; 
+    console.log(e.target)
+    console.log(name)
+    console.log(value)
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -36,8 +39,8 @@ export default function AddQ(props: Props) {
         <label htmlFor={formData.type} className={classes.fixedField}>
           Type
           <select
-            name={formData.type}
-            value='type'
+            name='type'
+            // value='type'
             onChange={(e)=> handleInputChange(e)} >
             <option value="textarea">Paragraph</option>
             <option value="text">Short answer</option>
