@@ -7,3 +7,9 @@
   margin-top: 4%;
   margin-left: 66px;
 }
+
+@media (width < 690px ) {
+  .navForm{
+    margin-left: 16px;
+  }
+}

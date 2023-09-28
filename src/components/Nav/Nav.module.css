@@ -4,6 +4,7 @@
   height: 80px;
   display: flex;
   justify-content: start;
+  overflow: hidden;
 }
 
 
@@ -14,7 +15,6 @@
   margin: 0;
   gap: 25px;
   max-width: 100%;
-  flex-wrap: wrap;
 }
 
 .list li{
