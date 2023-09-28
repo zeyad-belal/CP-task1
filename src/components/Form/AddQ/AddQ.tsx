@@ -3,19 +3,18 @@ import  { useState, ChangeEvent } from 'react';
 import classes from './AddQ.module.css';
 
 interface Props {
-  getExtraQsData(Q: { type: string; question: string }): void;
+  getExtraQsData(Q: { type: string; question: string  }): void;
   addingStateDone(done: boolean): void;
 }
 
 export default function AddQ(props: Props) {
   const [formData, setFormData] = useState<{ type: string; question: string }>({
-    type: 'textarea', 
+    type: 'text', 
     question: '',
   });
 
   function handleInputChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name, value } = e.target as HTMLInputElement | HTMLSelectElement; 
-
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -34,10 +33,10 @@ export default function AddQ(props: Props) {
   return (
     <div className={classes.QContainer}>
       <div className={classes.inputs}>
-        <label htmlFor="type" className={classes.fixedField}>
+        <label htmlFor={formData.type} className={classes.fixedField}>
           Type
           <select
-            name="type"
+            name={formData.type}
             value={formData.type}
             onChange={handleInputChange} >
             <option value="textarea">Paragraph</option>
@@ -52,10 +51,10 @@ export default function AddQ(props: Props) {
           </select>
         </label>
 
-        <label htmlFor="question" className={classes.fixedField}>
+        <label htmlFor={formData.question} className={classes.fixedField}>
           Question
           <input
-            name="question"
+            name={formData.question}
             className={classes.Q}
             type="text"
             placeholder="Type here"

@@ -156,7 +156,7 @@ export default function Profile() {
     setAddingQ(false);
   }
 
-  function getExtraQsData(Q: ExtraQuestion) { // Define the type for Q
+  function getExtraQsData(Q: ExtraQuestion) { 
     setExtraQs((prevValues) => [...prevValues, Q]);
   }
 

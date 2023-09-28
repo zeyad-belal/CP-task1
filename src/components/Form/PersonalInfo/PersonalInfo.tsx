@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import React, { useState, FormEvent, MouseEvent } from 'react';
+import React, { useState, FormEvent, MouseEvent, ChangeEvent } from 'react';
 import classes from './PersonalInfo.module.css';
 import { AiOutlinePlus } from 'react-icons/ai';
 import AddQ from '../AddQ/AddQ';
@@ -10,6 +10,7 @@ type ExtraQuestion = {
   question: string;
   type: string;
 };
+
 
 type InputsState = {
   [key: string]: {
@@ -24,15 +25,15 @@ export default function PersonalInfo() {
   const [choices, setChoices] = useState<string[]>([]);
 
   const initialInputs: InputsState = {
-    firstName: { internal: false, visibility: false },
-    lastName: { internal: false, visibility: false },
-    emailId: { internal: false, visibility: false },
-    Phone: { internal: false, visibility: false },
-    Nationality: { internal: false, visibility: false },
-    'Current Residence': { internal: false, visibility: false },
-    'Id Number': { internal: false, visibility: false },
-    'Date of Birth': { internal: false, visibility: false },
-    Gender: { internal: false, visibility: false },
+    firstName: { internal: false, visibility: false  },
+    lastName: { internal: false, visibility: false  },
+    emailId: { internal: false, visibility: false  },
+    Phone: { internal: false, visibility: false  },
+    Nationality: { internal: false, visibility: false  },
+    'Current Residence': { internal: false, visibility: false  },
+    'Id Number': { internal: false, visibility: false  },
+    'Date of Birth': { internal: false, visibility: false  },
+    Gender: { internal: false, visibility: false  },
   };
   const [inputs, setInputs] = useState<InputsState>(initialInputs);
 
@@ -56,18 +57,16 @@ export default function PersonalInfo() {
           <span>
             <span>
               <input
-                required
                 name={field}
                 type="checkbox"
                 checked={inputs[field].internal}
-                onChange={() => handleCheckboxChange(field, 'internal')}
+                onChange={handleCheckboxChange(field, 'internal')}
               />
               Internal
             </span>
 
-            <span className={isChecked ? classes.active : ''} onClick={() => handleCheckboxChange(field, 'visibility')}>
+            <span className={isChecked ? classes.active : ''} onClick={handleCheckboxChange(field, 'visibility')}>
               <input
-                required
                 name={field}
                 type="checkbox"
                 checked={isChecked}
@@ -104,17 +103,13 @@ export default function PersonalInfo() {
     // Gather data from inputs and extra questions
     const dataToSend = {
       ...inputs,
-      extraQuestions: extraQs,
+      extraQsAnswers: formData,
     };
-
+    console.log("formData",formData)
     console.log('Data to send:', dataToSend);
 
     try {
-      const response = await axios.post('theAPI', dataToSend, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await axios.post('https://stoplight.io/mocks/zeyad/cptask/247155419', dataToSend );
 
       // Handle the API response
       console.log('API Response:', response.data);
@@ -128,29 +123,42 @@ export default function PersonalInfo() {
     }
   };
 
+  const [formData, setFormData] = useState<object>({});
+  console.log(formData)
+
+  function handleInputChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+    const { name, value } = e.target as HTMLInputElement | HTMLSelectElement; 
+    console.log(e.target)
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  }
+
+
   const typesMap: { [key: string]: React.ReactNode } = {
     textarea: <textarea></textarea>,
-    text: <input type="text" />,
+    text: <input placeholder='type here' type="text" />,
     boolean: (
-      <select>
+      <select onChange={handleInputChange} >
         <option value="yes">yes</option>
         <option value="no">no</option>
       </select>
     ),
     dropdown: (
-      <select>
+      <select onChange={handleInputChange} >
         <option value="one">one</option>
         <option value="two">two</option>
       </select>
     ),
     choices: (
       <>
-        <div className={classes.multi}>
-          <input type="text" placeholder="type here" />
+        <div className={classes.multi} >
+          <input placeholder='type here' type="text" onChange={handleInputChange}  />
           <span onClick={(e) => addChoice(e)}> <AiOutlinePlus /> </span>
         </div>
         {choices && choices.length > 0 && (
-          <select className={classes.choicesSelect}>
+          <select className={classes.choicesSelect} onChange={handleInputChange} >
             {choices.map((choice, index) => (
               <option key={index} value={choice}>
                 {choice}
@@ -160,10 +168,10 @@ export default function PersonalInfo() {
         )}
       </>
     ),
-    date: <input type="date" />,
-    number: <input type="number" />,
-    file: <input type="file" />,
-    video: <input type="video" />,
+    date: <input placeholder='type here' type="date" onChange={handleInputChange}  />,
+    number: <input placeholder='type here' type="number" onChange={handleInputChange}  />,
+    file: <input placeholder='type here' type="file" onChange={handleInputChange}  />,
+    video: <input placeholder='type here' type="video" onChange={handleInputChange}  />,
   };
 
   return (
@@ -172,17 +180,17 @@ export default function PersonalInfo() {
       <div className={classes.inputs}>
         <label className={classes.fixedField}>
           First Name
-          <input name="firstName" type="text" required />
+          <input name="firstName" type="text" required  onChange={(e) => handleInputChange(e)}  />
         </label>
 
         <label className={classes.fixedField}>
           Last Name
-          <input name="lastName" type="text" required />
+          <input name="lastName" type="text" required  onChange={(e) => handleInputChange(e)}  />
         </label>
 
         <label className={classes.fixedField}>
           Email
-          <input name="emailId" type="text" required />
+          <input name="emailId" type="text" required  onChange={(e) => handleInputChange(e)}  />
         </label>
 
         {renderCheckboxes('Phone')}
