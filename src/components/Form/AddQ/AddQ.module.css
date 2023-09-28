@@ -64,6 +64,7 @@ option:hover {
   flex-direction: column;
   gap: 15px;
   font-weight: 600;
+
 }
 
 .fixedField input{

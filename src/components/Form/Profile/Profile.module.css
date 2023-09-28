@@ -39,6 +39,28 @@
 .checkHidden{
   visibility: hidden;
 }
+
+.multi{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+  margin-top: 20px !important ;
+  margin-bottom: 10px !important ;
+}
+
+.multi input{
+  width: 90%;
+  border: 1px solid #C4C4C4;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.multi  span{
+  cursor: pointer;
+}
+
+
 .checkField{
   border: none;
   border-bottom: 1px solid #C4C4C4;
@@ -135,4 +157,39 @@
 
 .submit:hover{
   background-color: #0fb045;
+}
+
+
+
+
+input{
+  outline: none;
+}
+
+
+.fixedField{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-weight: 600;
+}
+
+.fixedField input{
+  border: none;
+  border-bottom: 1px solid #C4C4C4;
+  margin-bottom: 15px;
+}
+
+.extraQsD{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: fit-content;
+}
+
+.choicesSelect{
+  width: 100%;
+}
+
+.EQH{
+  margin-top: 30px;
 }

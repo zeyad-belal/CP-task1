@@ -92,7 +92,7 @@ export default function PersonalInfo() {
   }
 
   function addChoice(e: MouseEvent<HTMLSpanElement>) {
-    const input = (e.target as HTMLSpanElement).parentNode?.parentNode?.children[0]?.textContent;
+    const input = (e.target as HTMLSpanElement).parentNode?.parentNode.children[0].value;
     if (input) {
       setChoices((prev) => [...prev, input]);
     }
@@ -149,8 +149,8 @@ export default function PersonalInfo() {
           <input type="text" placeholder="type here" />
           <span onClick={(e) => addChoice(e)}> <AiOutlinePlus /> </span>
         </div>
-        {choices && (
-          <select>
+        {choices && choices.length > 0 && (
+          <select className={classes.choicesSelect}>
             {choices.map((choice, index) => (
               <option key={index} value={choice}>
                 {choice}
@@ -199,11 +199,11 @@ export default function PersonalInfo() {
 
         {/* displaying extras questions */}
         {extraQs.map((Q, i) => (
-          <label key={i}>
-            {Q.question}
-            <span> </span>
+          <div className={classes.labelLike} key={i}>
+            <p className={classes.EQH}>  {Q.question} </p>
+            
             {typesMap[Q.type]}
-          </label>
+          </div>
         ))}
         {AddingQ ? <AddQ getExtraQsData={getExtraQsData} addingStateDone={addingStateDone} /> : ''}
 

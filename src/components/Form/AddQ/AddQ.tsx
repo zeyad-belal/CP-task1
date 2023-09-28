@@ -15,7 +15,7 @@ export default function AddQ(props: Props) {
 
   function handleInputChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name, value } = e.target as HTMLInputElement | HTMLSelectElement; 
-    // Update the corresponding state value based on the input name
+
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -39,8 +39,7 @@ export default function AddQ(props: Props) {
           <select
             name="type"
             value={formData.type}
-            onChange={handleInputChange}
-          >
+            onChange={handleInputChange} >
             <option value="textarea">Paragraph</option>
             <option value="text">Short answer</option>
             <option value="boolean">Yes/No</option> 
