@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import  { useState } from 'react'; // Import React
+import  { useState } from 'react'; // 
 import classes from './Profile.module.css';
 import { AiOutlinePlus } from 'react-icons/ai';
 import AddQ from '../AddQ/AddQ';
@@ -18,7 +18,7 @@ type ExtraQuestion = {
 };
 
 export default function Profile() {
-  const [extraQs, setExtraQs] = useState<ExtraQuestion[]>([]); // Define the type for extraQs
+  const [extraQs, setExtraQs] = useState<ExtraQuestion[]>([]); 
   const [AddingQ, setAddingQ] = useState<boolean>(false);
   const [choices, setChoices] = useState<string[]>([]);
 
@@ -84,7 +84,7 @@ export default function Profile() {
       visibility: inputs[field].visibility,
     }));
 
-    // Send data to your API (replace this with your API call)
+    // Send data to your API 
     fetch('YOUR_API_URL', {
       method: 'POST',
       headers: {
