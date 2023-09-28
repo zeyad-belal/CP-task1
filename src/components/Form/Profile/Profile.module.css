@@ -71,7 +71,7 @@
 .labelLike  span span:last-child::after{
   content: "";
   position: absolute;
-  top: 2px;
+  top: 1px;
   right: 2px;
   width: 15px;
   height: 15px;
@@ -83,8 +83,8 @@
 .labelLike  span span:last-child.active::after{
   content: "";
   position: absolute;
-  top: 2.5px;
-  left: 19px;
+  top: 2px;
+  left: 6px;
   width: 15px;
   height: 15px;
   background-color: #F4F4F4;
