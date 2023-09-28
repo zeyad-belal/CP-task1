@@ -173,17 +173,17 @@ export default function PersonalInfo() {
     <form className={classes.personalContainer} onSubmit={(e) => handleSubmit(e)}>
       <h2>Personal Information</h2>
       <div className={classes.inputs}>
-        <label>
+        <label className={classes.fixedField}>
           First Name
           <input name="firstName" type="text" required />
         </label>
 
-        <label>
+        <label className={classes.fixedField}>
           Last Name
           <input name="lastName" type="text" required />
         </label>
 
-        <label>
+        <label className={classes.fixedField}>
           Email
           <input name="emailId" type="text" required />
         </label>
