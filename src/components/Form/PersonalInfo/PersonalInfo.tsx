@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import React, { useState, FormEvent, MouseEvent, ChangeEvent } from 'react';
@@ -112,7 +113,7 @@ export default function PersonalInfo() {
         };
       }
     });
-    
+
 
 
     console.log("formData",formData)
