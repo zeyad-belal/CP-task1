@@ -91,12 +91,16 @@ export default function PersonalInfo() {
     console.log(done)
   }
 
-  function addChoice(e: MouseEvent<HTMLSpanElement>) {
-    const input = (e.target as HTMLSpanElement).parentNode?.parentNode.children[0].value;
+  function addChoice(e: MouseEvent) {
+    const input = (e.target as HTMLSpanElement).parentNode?.parentNode?.querySelector<HTMLInputElement>('input[type="text"]');
     if (input) {
-      setChoices((prev) => [...prev, input]);
+      const inputValue = input.value;
+      if (inputValue) {
+        setChoices((prev) => [...prev, inputValue]);
+      }
     }
   }
+  
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
