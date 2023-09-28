@@ -37,8 +37,8 @@ export default function AddQ(props: Props) {
           Type
           <select
             name={formData.type}
-            value={formData.type}
-            onChange={handleInputChange} >
+            value='type'
+            onChange={(e)=> handleInputChange(e)} >
             <option value="textarea">Paragraph</option>
             <option value="text">Short answer</option>
             <option value="boolean">Yes/No</option> 
@@ -54,12 +54,12 @@ export default function AddQ(props: Props) {
         <label htmlFor={formData.question} className={classes.fixedField}>
           Question
           <input
-            name={formData.question}
+            name='question'
             className={classes.Q}
             type="text"
             placeholder="Type here"
             value={formData.question}
-            onChange={handleInputChange}
+            onChange={(e)=> handleInputChange(e)}
           />
         </label>
       </div>

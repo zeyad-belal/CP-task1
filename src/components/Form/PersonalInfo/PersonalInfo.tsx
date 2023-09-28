@@ -60,12 +60,12 @@ export default function PersonalInfo() {
                 name={field}
                 type="checkbox"
                 checked={inputs[field].internal}
-                onChange={handleCheckboxChange(field, 'internal')}
+                onChange={() =>handleCheckboxChange(field, 'internal')}
               />
               Internal
             </span>
 
-            <span className={isChecked ? classes.active : ''} onClick={handleCheckboxChange(field, 'visibility')}>
+            <span className={isChecked ? classes.active : ''} onClick={()=> handleCheckboxChange(field, 'visibility')}>
               <input
                 name={field}
                 type="checkbox"
@@ -76,7 +76,7 @@ export default function PersonalInfo() {
             {isChecked ? 'Show' : 'Hide'}
           </span>
         </p>
-        <input name={field} required type="text" className={classes.checkField} />
+        <input name={field} required type="text" className={classes.checkField} onChange={(e)=> handleInputChange(e)} />
       </div>
     );
   };
